@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk - Website Saya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .card h2 { margin-bottom: 10px; color: #333; }
+        .card p { color: #666; font-size: 14px; margin-bottom: 30px; }
+
+        /* --- FORM INPUT --- */
+        .input-group { text-align: left; margin-bottom: 20px; position: relative; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+        
+        .input-wrapper { position: relative; }
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 40px 12px 15px; /* Padding kanan lebih besar untuk icon */
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .input-wrapper input:focus { border-color: #764ba2; box-shadow: 0 0 5px rgba(118, 75, 162, 0.2); }
+        .input-wrapper i.toggle-password {
+            position: absolute; right: 15px; top: 50%;
+            transform: translateY(-50%); cursor: pointer; color: #888;
+        }
+
+        /* --- TOMBOL & LINK --- */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        .footer-link { margin-top: 20px; font-size: 13px; color: #666; }
+        .footer-link a { color: #764ba2; text-decoration: none; font-weight: 600; }
+        .footer-link a:hover { text-decoration: underline; }
+
+        /* --- ERROR MESSAGE --- */
+        .error-text { color: red; font-size: 11px; margin-top: 5px; display: none; }
+        .input-error input { border-color: red; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Selamat Datang</h2>
+        <p>Silakan masuk ke akun Anda</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Email</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" placeholder="contoh@email.com">
+                </div>
+                <span class="error-text" id="emailError">Email wajib diisi</span>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" placeholder="Masukkan password">
+                    <i class="fa-solid fa-eye toggle-password" onclick="togglePass('password', this)"></i>
+                </div>
+                <span class="error-text" id="passError">Password wajib diisi</span>
+            </div>
+
+            <button type="submit" class="btn">Masuk</button>
+        </form>
+
+        <div class="footer-link">
+            Belum punya akun? <a href="register.html">Daftar Sekarang</a>
+        </div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIN ---
+
+        // 1. Fungsi Toggle Password (Lihat/Sembunyi)
+        function togglePass(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if(input.type === "password") {
+                input.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+
+        // 2. Validasi Form
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+            
+            const email = document.getElementById("email");
+            const pass = document.getElementById("password");
+            let valid = true;
+
+            // Reset Error
+            document.querySelectorAll(".error-text").forEach(el => el.style.display = "none");
+            email.parentElement.classList.remove("input-error");
+            pass.parentElement.classList.remove("input-error");
+
+            // Cek Email
+            if(!email.value.trim()) {
+                document.getElementById("emailError").style.display = "block";
+                email.parentElement.classList.add("input-error");
+                valid = false;
+            }
+
+            // Cek Password
+            if(!pass.value.trim()) {
+                document.getElementById("passError").style.display = "block";
+                pass.parentElement.classList.add("input-error");
+                valid = false;
+            }
+
+            if(valid) {
+                alert("Login Berhasil! silahkan klik OK");
+                window.location.href = "spam ngl.html"; // Redirect jika ada
+            }
+        });
+    </script>
+</body>
+</html>
